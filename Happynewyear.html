@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Happy New Year 2026 | Ratheesh MG</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{
+ width:100%;
+ height:100%;
+ overflow:hidden;
+ background:radial-gradient(circle at top,#1b1f3b,#05070f);
+ perspective:1600px;
+ font-family:'Arial Black','Impact',sans-serif;
+}
+
+/* 🌌 Background Static Stars */
+.stars{
+ position:fixed; inset:0;
+ background:
+  radial-gradient(1px 1px at 10% 20%,#fff,transparent),
+  radial-gradient(1px 1px at 70% 30%,#fff,transparent),
+  radial-gradient(2px 2px at 40% 60%,#fff,transparent),
+  radial-gradient(1px 1px at 90% 80%,#fff,transparent);
+ animation:twinkle 4s infinite alternate;
+ z-index:-3;
+}
+@keyframes twinkle{from{opacity:.4}to{opacity:1}}
+
+/* 🎬 Center */
+.container{
+ position:absolute; inset:0;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ z-index:5;
+}
+
+/* 🎥 Intro */
+#wishArea{
+ display:none;
+ transform-style:preserve-3d;
+ animation:intro 2.8s cubic-bezier(.19,1,.22,1) forwards;
+ text-align:center;
+}
+@keyframes intro{
+ from{
+  transform:rotateX(60deg) translateZ(-400px);
+  opacity:0;
+ }
+ to{
+  transform:rotateX(0) translateZ(0);
+  opacity:1;
+ }
+}
+
+/* 🔥 ULTRA BOLD CINEMATIC LETTERS */
+.word span{
+ display:inline-block;
+ font-size:clamp(46px,9vw,110px);
+ font-weight:900;
+ letter-spacing:6px;
+ transform-style:preserve-3d;
+ animation:
+   colorShift 4s linear infinite,
+   pulse 2.8s ease-in-out infinite;
+ animation-delay:calc(var(--i)*.15s);
+ text-shadow:
+  0 2px 0 #000,
+  0 6px 0 #111,
+  0 12px 0 #000,
+  0 20px 25px rgba(0,0,0,.9),
+  0 0 30px currentColor,
+  0 0 60px currentColor;
+ transform:translateZ(90px);
+}
+
+@keyframes colorShift{
+ 0%{color:#ffd700}
+ 20%{color:#ff4dd2}
+ 40%{color:#00e5ff}
+ 60%{color:#7cff00}
+ 80%{color:#ff9800}
+ 100%{color:#ffd700}
+}
+
+@keyframes pulse{
+ 0%,100%{transform:translateZ(90px) scale(1)}
+ 50%{transform:translateZ(120px) scale(1.05)}
+}
+
+/* 🧱 YEAR */
+.year span{
+ display:inline-block;
+ font-size:clamp(70px,16vw,150px);
+ font-weight:900;
+ animation:
+  colorShift 3s linear infinite,
+  pulse 3s ease-in-out infinite;
+ animation-delay:calc(var(--i)*.2s);
+ text-shadow:
+  0 4px 0 #000,
+  0 10px 0 #111,
+  0 20px 30px rgba(0,0,0,.9),
+  0 0 40px currentColor,
+  0 0 80px currentColor;
+ transform:translateZ(130px);
+}
+
+/* 🔘 Button */
+#surpriseBtn{
+ padding:18px 55px;
+ font-size:20px;
+ color:#fff;
+ background:linear-gradient(45deg,#ff0055,#7000ff);
+ border:none;
+ border-radius:50px;
+ cursor:pointer;
+ box-shadow:0 0 40px rgba(255,0,85,.8);
+}
+.arrow{
+ margin-top:10px;
+ animation:bounce 1s infinite;
+ color:#fff;
+}
+@keyframes bounce{
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-15px)}
+}
+
+/* 📤 Share */
+#shareBtn{
+ margin-top:30px;
+ padding:15px 42px;
+ font-size:18px;
+ background:#25d366;
+ color:#fff;
+ border:none;
+ border-radius:35px;
+ box-shadow:0 0 35px rgba(37,211,102,1);
+ cursor:pointer;
+}
+
+/* 🧾 Watermark */
+.watermark{
+ position:fixed;
+ bottom:12px;
+ width:100%;
+ text-align:center;
+ font-size:12px;
+ color:rgba(255,255,255,.4);
+ letter-spacing:3px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<audio id="bgMusic">
+ <source src="https://github.com/rathishmgndkm/My-website/raw/refs/heads/main/BG%20Audio.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+ <button id="surpriseBtn" onclick="startShow()">Click here to Surprise</button>
+ <div class="arrow">⬆</div>
+
+ <div id="wishArea">
+  <div class="word">
+   <span style="--i:1">H</span><span style="--i:2">A</span><span style="--i:3">P</span><span style="--i:4">P</span><span style="--i:5">Y</span>
+   <span style="--i:6">&nbsp;</span>
+   <span style="--i:7">N</span><span style="--i:8">E</span><span style="--i:9">W</span>
+   <span style="--i:10">&nbsp;</span>
+   <span style="--i:11">Y</span><span style="--i:12">E</span><span style="--i:13">A</span><span style="--i:14">R</span>
+  </div>
+
+  <div class="year">
+   <span style="--i:1">2</span>
+   <span style="--i:2">0</span>
+   <span style="--i:3">2</span>
+   <span style="--i:4">6</span>
+  </div>
+
+  <button id="shareBtn" onclick="share()">Share on WhatsApp</button>
+ </div>
+</div>
+
+<div class="watermark">DESIGNED BY RATHEESH MG</div>
+
+<script>
+/* 🎉 Start */
+function startShow(){
+ document.getElementById("surpriseBtn").style.display="none";
+ document.querySelector(".arrow").style.display="none";
+ document.getElementById("wishArea").style.display="block";
+
+ const audio=document.getElementById("bgMusic");
+ audio.currentTime=0;
+ audio.play().catch(()=>{});
+
+ // Confetti Animation (വശങ്ങളിൽ നിന്ന് മാത്രം വരുന്നു)
+ let end=Date.now()+15000;
+ (function frame(){
+  confetti({particleCount:4,spread:70,origin:{x:0}});
+  confetti({particleCount:4,spread:70,origin:{x:1}});
+  if(Date.now()<end) requestAnimationFrame(frame);
+ })();
+}
+
+/* 📤 Share */
+function share(){
+ const text="🎬 Happy New Year 2026 🎬\nCinematic Wishes from Ratheesh MG\n";
+ window.open("https://wa.me/?text="+encodeURIComponent(text+location.href),"_blank");
+}
+</script>
+
+</body>
+</html>
