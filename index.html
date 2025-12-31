@@ -31,6 +31,30 @@ html,body{
 }
 @keyframes twinkle{from{opacity:.4}to{opacity:1}}
 
+/* ⏰ Glow Clock & Date Style */
+#datetime-container {
+ position: fixed;
+ top: 30px;
+ width: 100%;
+ text-align: center;
+ z-index: 10;
+ color: #fff;
+ text-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff, 0 0 30px #00e5ff;
+ font-family: 'Courier New', Courier, monospace;
+}
+#clock {
+ font-size: 38px;
+ font-weight: 900;
+ letter-spacing: 2px;
+}
+#date {
+ font-size: 16px;
+ letter-spacing: 3px;
+ margin-top: 8px;
+ text-transform: uppercase;
+ opacity: 0.9;
+}
+
 /* 🎬 Center */
 .container{
  position:absolute; inset:0;
@@ -133,8 +157,8 @@ html,body{
  50%{transform:translateY(-15px)}
 }
 
-/* 📤 Share */
-#shareBtn{
+/* 📥 Contact Button Style */
+#contactBtn{
  margin-top:30px;
  padding:15px 42px;
  font-size:18px;
@@ -146,26 +170,42 @@ html,body{
  cursor:pointer;
 }
 
-/* 🧾 Watermark */
+/* 🧾 Watermark (Animation added) */
 .watermark{
- position:fixed;
- bottom:12px;
- width:100%;
- text-align:center;
- font-size:12px;
- color:rgba(255,255,255,.4);
- letter-spacing:3px;
+ position: fixed;
+ bottom: 40px;
+ width: 100%;
+ text-align: center;
+ font-size: 16px;
+ color: rgba(255,255,255,.6);
+ letter-spacing: 4px;
+ font-weight: bold;
+ z-index: 10;
+ /* പേജ് ഓപ്പൺ ആകുമ്പോൾ താഴെ നിന്ന് ഉയർന്നു വരുന്ന ആനിമേഷൻ */
+ animation: watermarkIntro 2.8s cubic-bezier(.19,1,.22,1) forwards;
+}
+
+@keyframes watermarkIntro {
+ from {
+  transform: translateY(100px);
+  opacity: 0;
+ }
+ to {
+  transform: translateY(0);
+  opacity: 1;
+ }
 }
 </style>
 </head>
 
-<body>
+<body onload="updateTime()">
 
 <div class="stars"></div>
 
-<audio id="bgMusic">
- <source src="https://github.com/rathishmgndkm/My-website/raw/refs/heads/main/BG%20Audio.mp3" type="audio/mpeg">
-</audio>
+<div id="datetime-container">
+    <div id="clock">00:00:00 AM</div>
+    <div id="date">JANUARY 01, 2026</div>
+</div>
 
 <div class="container">
  <button id="surpriseBtn" onclick="startShow()">Click here to Surprise</button>
@@ -187,14 +227,33 @@ html,body{
    <span style="--i:4">6</span>
   </div>
 
-  <button id="shareBtn" onclick="share()">Share on WhatsApp</button>
+  <button id="contactBtn" onclick="contactMe()">Contact Me on WhatsApp</button>
  </div>
 </div>
 
 <div class="watermark">DESIGNED BY RATHEESH MG</div>
 
+<audio id="bgMusic">
+ <source src="https://github.com/rathishmgndkm/My-website/raw/refs/heads/main/BG%20Audio.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-/* 🎉 Start */
+/* ⏰ Clock Logic */
+function updateTime() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    const hDisplay = String(hours).padStart(2, '0');
+    document.getElementById('clock').textContent = `${hDisplay}:${minutes}:${seconds} ${ampm}`;
+    const options = { day: '2-digit', month: 'long', year: 'numeric' };
+    document.getElementById('date').textContent = now.toLocaleDateString('en-US', options);
+    setTimeout(updateTime, 1000);
+}
+
+/* 🎉 Start Show */
 function startShow(){
  document.getElementById("surpriseBtn").style.display="none";
  document.querySelector(".arrow").style.display="none";
@@ -204,7 +263,6 @@ function startShow(){
  audio.currentTime=0;
  audio.play().catch(()=>{});
 
- // Confetti Animation (വശങ്ങളിൽ നിന്ന് മാത്രം വരുന്നു)
  let end=Date.now()+15000;
  (function frame(){
   confetti({particleCount:4,spread:70,origin:{x:0}});
@@ -213,12 +271,14 @@ function startShow(){
  })();
 }
 
-/* 📤 Share */
-function share(){
- const text="🎬 Happy New Year 2026 🎬\nCinematic Wishes from Ratheesh MG\n";
- window.open("https://wa.me/?text="+encodeURIComponent(text+location.href),"_blank");
+/* 📞 Contact Direct */
+function contactMe(){
+ const myNumber = "918281084814"; 
+ const message = "Hi Ratheesh, Happy New Year 2026!";
+ window.open("https://wa.me/" + myNumber + "?text=" + encodeURIComponent(message), "_blank");
 }
 </script>
 
 </body>
 </html>
+ 
