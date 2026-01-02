@@ -1,284 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Happy New Year 2026 | Ratheesh MG</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Transition | Stay Tuned</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
 
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{
- width:100%;
- height:100%;
- overflow:hidden;
- background:radial-gradient(circle at top,#1b1f3b,#05070f);
- perspective:1600px;
- font-family:'Arial Black','Impact',sans-serif;
-}
+        body {
+            background: #050505;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: white;
+        }
 
-/* 🌌 Background Static Stars */
-.stars{
- position:fixed; inset:0;
- background:
-  radial-gradient(1px 1px at 10% 20%,#fff,transparent),
-  radial-gradient(1px 1px at 70% 30%,#fff,transparent),
-  radial-gradient(2px 2px at 40% 60%,#fff,transparent),
-  radial-gradient(1px 1px at 90% 80%,#fff,transparent);
- animation:twinkle 4s infinite alternate;
- z-index:-3;
-}
-@keyframes twinkle{from{opacity:.4}to{opacity:1}}
+        /* പശ്ചാത്തലത്തിലെ ചലിക്കുന്ന അനിമേഷൻ */
+        .background-animate {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #050505 100%);
+            z-index: -1;
+        }
 
-/* ⏰ Glow Clock & Date Style */
-#datetime-container {
- position: fixed;
- top: 30px;
- width: 100%;
- text-align: center;
- z-index: 10;
- color: #fff;
- text-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff, 0 0 30px #00e5ff;
- font-family: 'Courier New', Courier, monospace;
-}
-#clock {
- font-size: 38px;
- font-weight: 900;
- letter-spacing: 2px;
-}
-#date {
- font-size: 16px;
- letter-spacing: 3px;
- margin-top: 8px;
- text-transform: uppercase;
- opacity: 0.9;
-}
+        .blob {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            filter: blur(80px);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: move 20s infinite alternate;
+            z-index: -1;
+        }
 
-/* 🎬 Center */
-.container{
- position:absolute; inset:0;
- display:flex;
- flex-direction:column;
- justify-content:center;
- align-items:center;
- z-index:5;
-}
+        @keyframes move {
+            from { transform: translate(-20%, -20%); }
+            to { transform: translate(20%, 20%); }
+        }
 
-/* 🎥 Intro */
-#wishArea{
- display:none;
- transform-style:preserve-3d;
- animation:intro 2.8s cubic-bezier(.19,1,.22,1) forwards;
- text-align:center;
-}
-@keyframes intro{
- from{
-  transform:rotateX(60deg) translateZ(-400px);
-  opacity:0;
- }
- to{
-  transform:rotateX(0) translateZ(0);
-  opacity:1;
- }
-}
+        /* മെയിൻ കാർഡ് ഡിസൈൻ */
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 40px;
+            border-radius: 30px;
+            text-align: center;
+            max-width: 550px;
+            width: 90%;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
 
-/* 🔥 ULTRA BOLD CINEMATIC LETTERS */
-.word span{
- display:inline-block;
- font-size:clamp(46px,9vw,110px);
- font-weight:900;
- letter-spacing:6px;
- transform-style:preserve-3d;
- animation:
-   colorShift 4s linear infinite,
-   pulse 2.8s ease-in-out infinite;
- animation-delay:calc(var(--i)*.15s);
- text-shadow:
-  0 2px 0 #000,
-  0 6px 0 #111,
-  0 12px 0 #000,
-  0 20px 25px rgba(0,0,0,.9),
-  0 0 30px currentColor,
-  0 0 60px currentColor;
- transform:translateZ(90px);
-}
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: 0.5s;
+            animation: shine 3s infinite;
+        }
 
-@keyframes colorShift{
- 0%{color:#ffd700}
- 20%{color:#ff4dd2}
- 40%{color:#00e5ff}
- 60%{color:#7cff00}
- 80%{color:#ff9800}
- 100%{color:#ffd700}
-}
+        @keyframes shine {
+            to { left: 100%; }
+        }
 
-@keyframes pulse{
- 0%,100%{transform:translateZ(90px) scale(1)}
- 50%{transform:translateZ(120px) scale(1.05)}
-}
+        .icon-circle {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 30px;
+            font-size: 45px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
 
-/* 🧱 YEAR */
-.year span{
- display:inline-block;
- font-size:clamp(70px,16vw,150px);
- font-weight:900;
- animation:
-  colorShift 3s linear infinite,
-  pulse 3s ease-in-out infinite;
- animation-delay:calc(var(--i)*.2s);
- text-shadow:
-  0 4px 0 #000,
-  0 10px 0 #111,
-  0 20px 30px rgba(0,0,0,.9),
-  0 0 40px currentColor,
-  0 0 80px currentColor;
- transform:translateZ(130px);
-}
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #fff, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-/* 🔘 Button */
-#surpriseBtn{
- padding:18px 55px;
- font-size:20px;
- color:#fff;
- background:linear-gradient(45deg,#ff0055,#7000ff);
- border:none;
- border-radius:50px;
- cursor:pointer;
- box-shadow:0 0 40px rgba(255,0,85,.8);
-}
-.arrow{
- margin-top:10px;
- animation:bounce 1s infinite;
- color:#fff;
-}
-@keyframes bounce{
- 0%,100%{transform:translateY(0)}
- 50%{transform:translateY(-15px)}
-}
+        p {
+            color: #94a3b8;
+            font-size: 16px;
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
 
-/* 📥 Contact Button Style */
-#contactBtn{
- margin-top:30px;
- padding:15px 42px;
- font-size:18px;
- background:#25d366;
- color:#fff;
- border:none;
- border-radius:35px;
- box-shadow:0 0 35px rgba(37,211,102,1);
- cursor:pointer;
-}
+        /* പ്രോഗ്രസ് ബാർ സ്റ്റൈൽ */
+        .progress-container {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            height: 8px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
 
-/* 🧾 Watermark (Animation added) */
-.watermark{
- position: fixed;
- bottom: 40px;
- width: 100%;
- text-align: center;
- font-size: 16px;
- color: rgba(255,255,255,.6);
- letter-spacing: 4px;
- font-weight: bold;
- z-index: 10;
- /* പേജ് ഓപ്പൺ ആകുമ്പോൾ താഴെ നിന്ന് ഉയർന്നു വരുന്ന ആനിമേഷൻ */
- animation: watermarkIntro 2.8s cubic-bezier(.19,1,.22,1) forwards;
-}
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            border-radius: 10px;
+            box-shadow: 0 0 15px #6366f1;
+            animation: load 4s ease-out forwards;
+        }
 
-@keyframes watermarkIntro {
- from {
-  transform: translateY(100px);
-  opacity: 0;
- }
- to {
-  transform: translateY(0);
-  opacity: 1;
- }
-}
-</style>
+        @keyframes load {
+            0% { width: 0%; }
+            100% { width: 85%; } /* കാണാൻ ഭംഗിക്ക് 85% നിൽക്കുന്നു */
+        }
+
+        .waiting-msg {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50px;
+            color: #818cf8;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .dot-flashing {
+            position: relative;
+            width: 6px;
+            height: 6px;
+            border-radius: 5px;
+            background-color: #818cf8;
+            color: #818cf8;
+            animation: dot-flashing 1s infinite linear alternate;
+            margin-left: 15px;
+        }
+
+        @keyframes dot-flashing {
+            0% { background-color: #818cf8; }
+            50%, 100% { background-color: rgba(129, 140, 248, 0.2); }
+        }
+
+        /* സോഷ്യൽ മീഡിയ ബട്ടണുകൾ (Optional) */
+        .socials {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-icon {
+            color: #475569;
+            text-decoration: none;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .social-icon:hover {
+            color: #fff;
+        }
+    </style>
 </head>
+<body>
 
-<body onload="updateTime()">
+    <div class="background-animate"></div>
+    <div class="blob"></div>
 
-<div class="stars"></div>
+    <div class="card">
+        <div class="icon-circle">💎</div>
+        
+        <h1>Project Completed</h1>
+        
+        <p>This chapter has successfully closed. Our team is currently crafting something extraordinary for the next phase. Thank you for your patience.</p>
 
-<div id="datetime-container">
-    <div id="clock">00:00:00 AM</div>
-    <div id="date">JANUARY 01, 2026</div>
-</div>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
 
-<div class="container">
- <button id="surpriseBtn" onclick="startShow()">Click here to Surprise</button>
- <div class="arrow">⬆</div>
+        <div class="waiting-msg">
+            NEW PROJECT IS COMING SOON
+            <div class="dot-flashing"></div>
+        </div>
 
- <div id="wishArea">
-  <div class="word">
-   <span style="--i:1">H</span><span style="--i:2">A</span><span style="--i:3">P</span><span style="--i:4">P</span><span style="--i:5">Y</span>
-   <span style="--i:6">&nbsp;</span>
-   <span style="--i:7">N</span><span style="--i:8">E</span><span style="--i:9">W</span>
-   <span style="--i:10">&nbsp;</span>
-   <span style="--i:11">Y</span><span style="--i:12">E</span><span style="--i:13">A</span><span style="--i:14">R</span>
-  </div>
+        <div class="socials">
+            <a href="#" class="social-icon">INSTAGRAM</a>
+            <a href="#" class="social-icon">WHATSAPP</a>
+            <a href="#" class="social-icon">TWITTER</a>
+        </div>
+    </div>
 
-  <div class="year">
-   <span style="--i:1">2</span>
-   <span style="--i:2">0</span>
-   <span style="--i:3">2</span>
-   <span style="--i:4">6</span>
-  </div>
-
-  <button id="contactBtn" onclick="contactMe()">Contact Me on WhatsApp</button>
- </div>
-</div>
-
-<div class="watermark">DESIGNED BY RATHEESH MG</div>
-
-<audio id="bgMusic">
- <source src="https://github.com/rathishmgndkm/My-website/raw/refs/heads/main/BG%20Audio.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-/* ⏰ Clock Logic */
-function updateTime() {
-    const now = new Date();
-    let hours = now.getHours();
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12;
-    const hDisplay = String(hours).padStart(2, '0');
-    document.getElementById('clock').textContent = `${hDisplay}:${minutes}:${seconds} ${ampm}`;
-    const options = { day: '2-digit', month: 'long', year: 'numeric' };
-    document.getElementById('date').textContent = now.toLocaleDateString('en-US', options);
-    setTimeout(updateTime, 1000);
-}
-
-/* 🎉 Start Show */
-function startShow(){
- document.getElementById("surpriseBtn").style.display="none";
- document.querySelector(".arrow").style.display="none";
- document.getElementById("wishArea").style.display="block";
-
- const audio=document.getElementById("bgMusic");
- audio.currentTime=0;
- audio.play().catch(()=>{});
-
- let end=Date.now()+15000;
- (function frame(){
-  confetti({particleCount:4,spread:70,origin:{x:0}});
-  confetti({particleCount:4,spread:70,origin:{x:1}});
-  if(Date.now()<end) requestAnimationFrame(frame);
- })();
-}
-
-/* 📞 Contact Direct */
-function contactMe(){
- const myNumber = "+917012013143"; 
- const message = "Hi Ratheesh, Happy New Year 2026!";
- window.open("https://wa.me/" + myNumber + "?text=" + encodeURIComponent(message), "_blank");
-}
-</script>
-
+    <script>
+        // പശ്ചാത്തലത്തിലെ ബ്ലോബ് മൗസിനൊപ്പം നീങ്ങാൻ
+        const blob = document.querySelector('.blob');
+        document.body.onpointermove = event => {
+            const { clientX, clientY } = event;
+            blob.animate({
+                left: `${clientX}px`,
+                top: `${clientY}px`
+            }, { duration: 3000, fill: "forwards" });
+        }
+    </script>
 </body>
 </html>
- 
