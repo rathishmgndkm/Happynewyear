@@ -2,29 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Transition | Stay Tuned</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Project Completed | Admin</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
 
-        * {
+        /* സ്ക്രോളിങ് ഒഴിവാക്കാൻ */
+        html, body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
             font-family: 'Poppins', sans-serif;
+            background: #050505;
         }
 
         body {
-            background: #050505;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
             color: white;
         }
 
-        /* പശ്ചാത്തലത്തിലെ ചലിക്കുന്ന അനിമേഷൻ */
         .background-animate {
             position: absolute;
             top: 0;
@@ -37,70 +37,47 @@
 
         .blob {
             position: absolute;
-            width: 400px;
-            height: 400px;
+            width: 350px;
+            height: 350px;
             background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
             filter: blur(80px);
             border-radius: 50%;
-            opacity: 0.4;
-            animation: move 20s infinite alternate;
+            opacity: 0.3;
             z-index: -1;
+            pointer-events: none;
         }
 
-        @keyframes move {
-            from { transform: translate(-20%, -20%); }
-            to { transform: translate(20%, 20%); }
-        }
-
-        /* മെയിൻ കാർഡ് ഡിസൈൻ */
         .card {
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 60px 40px;
+            padding: 40px 30px;
             border-radius: 30px;
             text-align: center;
-            max-width: 550px;
-            width: 90%;
+            max-width: 450px;
+            width: 85%;
             box-shadow: 0 25px 50px rgba(0,0,0,0.5);
             position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-            transition: 0.5s;
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            to { left: 100%; }
         }
 
         .icon-circle {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0 auto 30px;
-            font-size: 45px;
+            margin: 0 auto 20px;
+            font-size: 35px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
         }
 
         h1 {
-            font-size: 32px;
+            font-size: 26px;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             background: linear-gradient(to right, #fff, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -108,34 +85,9 @@
 
         p {
             color: #94a3b8;
-            font-size: 16px;
-            margin-bottom: 35px;
+            font-size: 14px;
+            margin-bottom: 25px;
             line-height: 1.6;
-        }
-
-        /* പ്രോഗ്രസ് ബാർ സ്റ്റൈൽ */
-        .progress-container {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            height: 8px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, #6366f1, #a855f7);
-            border-radius: 10px;
-            box-shadow: 0 0 15px #6366f1;
-            animation: load 4s ease-out forwards;
-        }
-
-        @keyframes load {
-            0% { width: 0%; }
-            100% { width: 85%; } /* കാണാൻ ഭംഗിക്ക് 85% നിൽക്കുന്നു */
         }
 
         .waiting-msg {
@@ -146,44 +98,56 @@
             border: 1px solid rgba(99, 102, 241, 0.3);
             border-radius: 50px;
             color: #818cf8;
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 12px;
+            font-weight: 600;
             letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .dot-flashing {
-            position: relative;
             width: 6px;
             height: 6px;
             border-radius: 5px;
             background-color: #818cf8;
-            color: #818cf8;
-            animation: dot-flashing 1s infinite linear alternate;
-            margin-left: 15px;
+            animation: dot-flashing 1s infinite alternate;
+            margin-left: 10px;
         }
 
         @keyframes dot-flashing {
-            0% { background-color: #818cf8; }
-            50%, 100% { background-color: rgba(129, 140, 248, 0.2); }
+            0% { opacity: 1; }
+            100% { opacity: 0.2; }
         }
 
-        /* സോഷ്യൽ മീഡിയ ബട്ടണുകൾ (Optional) */
         .socials {
-            margin-top: 30px;
+            margin-top: 25px;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
         }
 
         .social-icon {
-            color: #475569;
+            color: #64748b;
             text-decoration: none;
-            font-size: 13px;
+            font-size: 11px;
             transition: 0.3s;
         }
 
-        .social-icon:hover {
-            color: #fff;
+        .social-icon:hover { color: #fff; }
+
+        /* Admin സെക്ഷൻ */
+        .admin-footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 15px;
+        }
+
+        .admin-footer span {
+            color: #818cf8;
+            font-weight: 700;
         }
     </style>
 </head>
@@ -197,14 +161,10 @@
         
         <h1>Project Completed</h1>
         
-        <p>This chapter has successfully closed. Our team is currently crafting something extraordinary for the next phase. Thank you for your patience.</p>
-
-        <div class="progress-container">
-            <div class="progress-bar"></div>
-        </div>
+        <p>This chapter has successfully closed. Our team is currently crafting something extraordinary for the next phase.</p>
 
         <div class="waiting-msg">
-            NEW PROJECT IS COMING SOON
+            Coming Soon
             <div class="dot-flashing"></div>
         </div>
 
@@ -213,16 +173,19 @@
             <a href="#" class="social-icon">WHATSAPP</a>
             <a href="#" class="social-icon">TWITTER</a>
         </div>
+
+        <div class="admin-footer">
+            By <span>Admin</span>
+        </div>
     </div>
 
     <script>
-        // പശ്ചാത്തലത്തിലെ ബ്ലോബ് മൗസിനൊപ്പം നീങ്ങാൻ
         const blob = document.querySelector('.blob');
         document.body.onpointermove = event => {
             const { clientX, clientY } = event;
             blob.animate({
-                left: `${clientX}px`,
-                top: `${clientY}px`
+                left: `${clientX - 175}px`,
+                top: `${clientY - 175}px`
             }, { duration: 3000, fill: "forwards" });
         }
     </script>
